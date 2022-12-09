@@ -14,7 +14,7 @@ public class Paths : MonoBehaviour
             Gizmos.DrawWireSphere(a.position, waypointSize);
         }
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.black;
         for (int i = 0; i < transform.childCount - 1; i++)
         {
             Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i + 1).position);
