@@ -371,6 +371,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sprite Sheet BG_11
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f6282a19d2ac14c94d8d3d93cc9d2a
+      internalID: -128378596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -390,6 +411,7 @@ TextureImporter:
       Sprite Sheet BG_5: 74285877
       Sprite Sheet BG_9: -762245536
       Sprite Sheet BG_1: -967100007
+      Sprite Sheet BG_11: -128378596
       Sprite Sheet BG_10: 730071820
       Sprite Sheet BG_3: 402499111
       Sprite Sheet BG_8: -676289892
