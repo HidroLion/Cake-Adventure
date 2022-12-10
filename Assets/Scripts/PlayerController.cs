@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] float health;
     Vector3 moveVector;
     float x, y;
 
@@ -24,5 +25,15 @@ public class PlayerController : MonoBehaviour
     void Flip(float look)
     {
         transform.localScale = new Vector3(look, 1, 1);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if(health < 0f)
+        {
+            Debug.Log("[Player Killed] - Game Over");
+        }
     }
 }
