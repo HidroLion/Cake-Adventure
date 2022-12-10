@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Paths objectives;
-    [SerializeField] private float patrolSpeed = 5f;
+    [SerializeField] private float patrolSpeed;
 
     bool wait;
     int state;
@@ -14,7 +14,9 @@ public class EnemyAI : MonoBehaviour
     float timer;
     [SerializeField] float waitTime;
 
-    private Transform currentWaypoint;
+    [SerializeField] private Transform patrolA;
+    [SerializeField] private Transform patrolB;
+    Transform patrolC;
 
     [Header("AI")]
     [SerializeField] Transform target;
@@ -30,10 +32,8 @@ public class EnemyAI : MonoBehaviour
 
         timer = 0;
         wait = false;
-        currentWaypoint = objectives.GetNextObjt(currentWaypoint);
-        transform.position = currentWaypoint.position;
-
-        currentWaypoint = objectives.GetNextObjt(currentWaypoint);
+        transform.position = patrolA.position;
+        patrolC = patrolB;
     }
 
     void Update()
@@ -86,26 +86,29 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            state = 2;
             wait = false;
+            state = 2;
         }
     }
 
     public void Move(float speed)
     {
-        transform.position = Vector3.MoveTowards(transform.position, currentWaypoint.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, currentWaypoint.position) == 0)
+        transform.position = Vector3.MoveTowards(transform.position, patrolC.position, speed * Time.deltaTime);
+        if(Vector3.Distance(transform.position, patrolC.position) <= distanceTarget)
         {
-            currentWaypoint = objectives.GetNextObjt(currentWaypoint);
-            Debug.Log("[Waypoint Check] Finish Movement - Starting Delay");
+            if (patrolC == patrolB)
+                patrolC = patrolA;
+            else if (patrolC == patrolA)
+                patrolC = patrolB;
+
             wait = true;
         }
 
-        if(transform.position.x > currentWaypoint.position.x)
+        if(transform.position.x > patrolC.position.x)
         {
             Flip(-1);
         }
-        else if (transform.position.x < currentWaypoint.position.x)
+        else if (transform.position.x < patrolC.position.x)
         {
             Flip(1);
         }
@@ -142,7 +145,7 @@ public class EnemyAI : MonoBehaviour
             agent.SetDestination(target.position);
         }
 
-        if (Vector3.Distance(transform.position, target.position) <= distanceTarget)
+        if (Vector3.Distance(transform.position, target.position) <= distanceTarget * 2)
         {
             wait = true;
             agent.enabled = false;
@@ -160,17 +163,18 @@ public class EnemyAI : MonoBehaviour
 
     void RestartPatrol()
     {
-        agent.SetDestination(currentWaypoint.position);
-        if(Vector3.Distance(transform.position, currentWaypoint.position) <= distanceTarget)
+        agent.enabled = true;
+        agent.SetDestination(patrolC.position);
+        if(Vector3.Distance(transform.position, patrolC.position) <= distanceTarget)
         {
             state = 0;
         }
 
-        if (transform.position.x > currentWaypoint.position.x)
+        if (transform.position.x > patrolC.position.x)
         {
             Flip(-1);
         }
-        else if (transform.position.x < currentWaypoint.position.x)
+        else if (transform.position.x < patrolC.position.x)
         {
             Flip(1);
         }

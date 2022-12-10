@@ -30,8 +30,9 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        Debug.Log("[Player] - Take Damage: " + damage.ToString());
 
-        if(health < 0f)
+        if (health < 0f)
         {
             Debug.Log("[Player Killed] - Game Over");
         }
