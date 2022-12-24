@@ -24,10 +24,11 @@ public class PlayerBombs : MonoBehaviour
             stars++;
             audioSource.PlayOneShot(blink);
             collision.gameObject.SetActive(false);
-            if(stars%maxStars == 0)
+            if(stars == maxStars)
             {
                 bombAvaliable.SetActive(true);
                 canBomb = true;
+                maxStars += 25;
                 Debug.Log("[Player] - Bomb Ready");
             }
         }

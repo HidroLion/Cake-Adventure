@@ -34516,6 +34516,10 @@ PrefabInstance:
       propertyPath: blink
       value: 
       objectReference: {fileID: 8300000, guid: bb269fb565d5b054cb2634fb32b9a9cc, type: 3}
+    - target: {fileID: 3159864980378098177, guid: d3c84c5ff8cfa444fb0685d6e063ae97, type: 3}
+      propertyPath: maxStars
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5083098693231099763, guid: d3c84c5ff8cfa444fb0685d6e063ae97, type: 3}
       propertyPath: m_Color.b
       value: 1
